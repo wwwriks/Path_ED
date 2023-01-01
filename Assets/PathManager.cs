@@ -9,8 +9,8 @@ public class PathManager : MonoBehaviour
 {
     [Header("Searching algorithm")] public Searcher searcher;
     
-    [Header("Goal ball")] public Ball goal;
-    [Header("Start ball")] public Ball start;
+    private Ball goal;
+    private Ball start;
     
     [Header("Ball")] public GameObject ball;
     public float minSpeed = 0f;
@@ -28,9 +28,25 @@ public class PathManager : MonoBehaviour
         GenerateBalls();
     }
 
+    private void Update()
+    {
+        Path();
+    }
+
     private void Path()
     {
-        searcher.Search(balls);
+        var path = searcher.Search(start, goal);
+        DrawPath(path);
+    }
+
+    private void DrawPath(List<Ball> pos)
+    {
+        if (pos == null) return;
+        for (int i = 0; i < pos.Count; i++)
+        {
+            if (i == pos.Count - 1) return;
+            Debug.DrawLine(pos[i].transform.position + Vector3.up, pos[i + 1].transform.position + Vector3.up, Color.green);
+        }
     }
     
     public void GenerateBalls()
@@ -56,6 +72,7 @@ public class PathManager : MonoBehaviour
 
         goal = balls[Random.Range(0, balls.Count)];
         goal.SetColor(Color.yellow);
+        goal.specialBall = true;
         /*
         if (balls.Count < 2)
         {
@@ -67,5 +84,6 @@ public class PathManager : MonoBehaviour
         ballListWithoutGoal.Remove(goal);
         start = ballListWithoutGoal[Random.Range(0, ballListWithoutGoal.Count)];
         start.SetColor(Color.green);
+        start.specialBall = true;
     }
 }

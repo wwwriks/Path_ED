@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using Random = UnityEngine.Random;
 using Vector2 = UnityEngine.Vector2;
@@ -12,26 +14,31 @@ public class Ball : MonoBehaviour
     private Transform target;
     private Vector2 bounds = new Vector2(5, 5);
     private PathManager pm;
-    public bool IsExplored { get; private set; }
+    public List<Ball> history;
+    public bool specialBall = false;
 
     //Set in editor
     [SerializeField] private int substeps = 1;
     [SerializeField] private float radius = 0.5f;
     [SerializeField] private float collisionThreshold = 0.1f;
-    [SerializeField] private int neighborAmount = 3;
-    private SpriteRenderer sRend = null;
+    [SerializeField] private float neighborRadius = 3f;
+    [SerializeField] private SpriteRenderer sRend = null;
+    [SerializeField] private SpriteRenderer sRendReach = null;
+    [SerializeField] private CircleCollider2D circCol = null;
     private float timeSinceLastCollision = 0f;
 
     //Calculated
-    public float DstFromTarget { set; get; }
     private float realRadius;
+    public List<Ball> neighbors = new List<Ball>();
 
     private void OnEnable()
     {
-        transform.localScale = Vector3.one * radius * 0.5f;
+        sRend.transform.localScale = Vector3.one * radius * 0.5f;
         timeSinceLastCollision = collisionThreshold;
-        sRend = GetComponentInChildren<SpriteRenderer>();
         realRadius = radius * 0.5f;
+        sRendReach.transform.localScale = Vector3.one * neighborRadius * 0.5f + Vector3.one;
+        circCol = GetComponent<CircleCollider2D>();
+        circCol.radius = realRadius * 0.5f;
     }
 
     private void Start()
@@ -40,14 +47,28 @@ public class Ball : MonoBehaviour
         speed = 5;
     }
 
-    public void SetExplored()
+    private void Update()
     {
-        IsExplored = true;
+        FindNeighbors();
+        if (specialBall) return;
+        if (neighbors.Count == 0)
+        {
+            SetColor(Color.gray);
+        }
+        else
+        {
+            SetColor(Color.white);
+        }
+        
+        DrawNeighbors();
     }
 
-    public void ResetExplored()
+    private void DrawNeighbors()
     {
-        IsExplored = false;
+        for (int i = 0; i < neighbors.Count; i++)
+        {
+            Debug.DrawLine(transform.position, neighbors[i].transform.position, Color.red);
+        }
     }
     
     internal virtual void FixedUpdate()
@@ -90,15 +111,24 @@ public class Ball : MonoBehaviour
         position += (Vector3) (direction * (speed * Time.deltaTime));
         transform.position = position;
     }
-    
-    public void FindNeighbors()
+
+    private void FindNeighbors()
     {
-        var allBalls = pm.balls;
-        
-        //FIND ALL NEIGHBOURS THEN CUT OFF AT AROUND 3
-        for (int i = 0; i < allBalls.Count; i++)
+        neighbors.Clear();
+        List<Collider2D> col = Physics2D.OverlapCircleAll(transform.position, neighborRadius).ToList();
+        for (int i = 0; i < col.Count; i++)
         {
-            
+            if (col[i] == circCol)
+            {
+                col.RemoveAt(i);
+            }
+        }
+        
+        col.OrderBy(x => Vector3.Distance(x.transform.position, transform.position));
+        
+        for (int i = 0; i < col.Count; i++)
+        {
+            neighbors.Add(col[i].GetComponent<Ball>());
         }
     }
     
