@@ -133,9 +133,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   parent: {fileID: 0}
   history: []
-  distanceToTarget: 99999
-  weight: 1
-  cost: 0
+  hCost: 3.4028235e+38
+  gCost: 3.4028235e+38
   specialBall: 0
   substeps: 1
   radius: 0.5
@@ -177,7 +176,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &9190481589812544974
 Transform:
   m_ObjectHideFlags: 0

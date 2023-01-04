@@ -44,8 +44,10 @@
      <Compile Include="Assets\PathManager.cs" />
      <Compile Include="Assets\DepthFirst.cs" />
      <Compile Include="Assets\Searcher.cs" />
-     <Compile Include="Assets\Ball.cs" />
      <Compile Include="Assets\Astar.cs" />
+     <Compile Include="Assets\Ball.cs" />
+     <Compile Include="Assets\BreadthFirst.cs" />
+     <Compile Include="Assets\Dijkstras.cs" />
      <Folder Include="Assets" />
      <Folder Include="Assets\Scenes" />
      <Reference Include="UnityEngine">

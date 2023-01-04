@@ -12,7 +12,7 @@ public class DepthFirst : Searcher
         throw new System.NotImplementedException();
     }
 
-    public override List<Ball> Search(Ball start, Ball goal)
+    public override List<Ball> Search(Ball start, Ball goal, List<Ball> allBalls)
     {
         return DFS(start, goal);
     }
@@ -20,7 +20,7 @@ public class DepthFirst : Searcher
     private static List<Ball> DFS(Ball start, Ball goal)
     {
         Stack<Ball> work = new Stack<Ball>();
-        List<Ball> visited = new List<Ball>();
+        HashSet<Ball> visited = new HashSet<Ball>();
         work.Push(start);
         visited.Add(start);
         start.history = new List<Ball>();

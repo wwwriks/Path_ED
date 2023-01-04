@@ -18,20 +18,16 @@ public class Ball : MonoBehaviour
     //These do the same thing
     public Ball parent;
     public List<Ball> history;
+
+    //public float fCost = float.MaxValue - 1f;
+    public float hCost = float.MaxValue - 1f;
+    public float gCost = float.MaxValue - 1f;
     
-    public float distanceToTarget = 99999f;
-    public float weight = 1f;
-    public float F
+    public float fCost
     {
-        get
-        {
-            if (distanceToTarget != -1 && cost != -1)
-                return distanceToTarget + cost;
-            else
-                return -1;
-        }
+        get { return hCost + gCost;}
     }
-    public float cost;
+    
     public bool specialBall = false;
 
     //Set in editor
@@ -56,28 +52,35 @@ public class Ball : MonoBehaviour
         sRendReach.transform.localScale = Vector3.one * neighborRadius * 0.5f + Vector3.one;
         circCol = GetComponent<CircleCollider2D>();
         circCol.radius = realRadius * 0.5f;
+        hCost = float.MaxValue - 1f;
+        gCost = float.MaxValue - 1f;
     }
 
     private void Start()
     {
         direction = new Vector2(Random.Range(-1f, 1f), Random.Range(-1f, 1f)).normalized;
         speed = 5;
+        
+        //fCost = float.MaxValue - 1f;
     }
 
     private void Update()
     {
         FindNeighbors();
-        if (specialBall) return;
-        if (neighbors.Count == 0)
+        if (!specialBall)
         {
-            SetColor(Color.gray);
-        }
-        else
-        {
-            SetColor(Color.white);
+            if (neighbors.Count == 0)
+            {
+                SetColor(Color.gray);
+            }
+            else
+            {
+                SetColor(Color.white);
+            }
         }
         
-        DrawNeighbors();
+        
+        //DrawNeighbors();
     }
 
     private void DrawNeighbors()
@@ -132,16 +135,17 @@ public class Ball : MonoBehaviour
     private void FindNeighbors()
     {
         neighbors.Clear();
-        List<Collider2D> col = Physics2D.OverlapCircleAll(transform.position, neighborRadius).ToList();
+        List<Collider2D> col = Physics2D.OverlapCircleAll(transform.position, neighborRadius * 0.5f).ToList();
+        
         for (int i = 0; i < col.Count; i++)
         {
-            if (col[i] == circCol)
+            if (col[i].gameObject == gameObject)
             {
                 col.RemoveAt(i);
             }
         }
         
-        col.OrderBy(x => Vector3.Distance(x.transform.position, transform.position));
+        //col.OrderBy(x => Vector3.Distance(x.transform.position, transform.position));
         
         for (int i = 0; i < col.Count; i++)
         {
@@ -172,5 +176,12 @@ public class Ball : MonoBehaviour
     public void SetColor(Color _color)
     {
         sRend.color = _color;
+    }
+
+    public void Reset()
+    {
+        hCost = float.MaxValue - 1f;
+        gCost = float.MaxValue - 1f;
+        parent = null;
     }
 }
