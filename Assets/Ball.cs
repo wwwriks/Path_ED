@@ -14,7 +14,24 @@ public class Ball : MonoBehaviour
     private Transform target;
     private Vector2 bounds = new Vector2(5, 5);
     private PathManager pm;
+    
+    //These do the same thing
+    public Ball parent;
     public List<Ball> history;
+    
+    public float distanceToTarget = 99999f;
+    public float weight = 1f;
+    public float F
+    {
+        get
+        {
+            if (distanceToTarget != -1 && cost != -1)
+                return distanceToTarget + cost;
+            else
+                return -1;
+        }
+    }
+    public float cost;
     public bool specialBall = false;
 
     //Set in editor

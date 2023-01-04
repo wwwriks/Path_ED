@@ -45,6 +45,7 @@
      <Compile Include="Assets\DepthFirst.cs" />
      <Compile Include="Assets\Searcher.cs" />
      <Compile Include="Assets\Ball.cs" />
+     <Compile Include="Assets\Astar.cs" />
      <Folder Include="Assets" />
      <Folder Include="Assets\Scenes" />
      <Reference Include="UnityEngine">

@@ -131,13 +131,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee8b79dcc19761e4abc614926e83efe8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  parent: {fileID: 0}
   history: []
+  distanceToTarget: 99999
+  weight: 1
+  cost: 0
+  specialBall: 0
   substeps: 1
   radius: 0.5
   collisionThreshold: 0.1
-  neighborRadius: 1
+  neighborRadius: 3
   sRend: {fileID: 877094975387105093}
   sRendReach: {fileID: 5441006454264081431}
+  circCol: {fileID: 0}
   neighbors: []
 --- !u!58 &608480889622175520
 CircleCollider2D:

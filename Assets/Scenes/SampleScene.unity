@@ -236,13 +236,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d843bf6aa04ad904abb6f09d9cac63cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  searcher: {fileID: 11400000, guid: a0808f408f42f8a45b6d75abdbc74010, type: 2}
+  searcher: {fileID: 11400000, guid: 8f38207c4c6fb2745b524ca6a1603001, type: 2}
+  path: []
   ball: {fileID: 877094975625489542, guid: 521354541d25c864aa25f9c58c659874, type: 3}
   minSpeed: 0.5
   maxSpeed: 2
   bounds: {x: 9, y: 5}
-  minAmount: 1000
-  maxAmount: 1000
+  minAmount: 50
+  maxAmount: 50
   balls: []
 --- !u!4 &840434816
 Transform:

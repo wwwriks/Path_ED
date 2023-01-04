@@ -11,6 +11,10 @@ public class PathManager : MonoBehaviour
     
     private Ball goal;
     private Ball start;
+
+
+    public List<Ball> path;
+    
     
     [Header("Ball")] public GameObject ball;
     public float minSpeed = 0f;
@@ -35,7 +39,7 @@ public class PathManager : MonoBehaviour
 
     private void Path()
     {
-        var path = searcher.Search(start, goal);
+        path = searcher.Search(start, goal);
         DrawPath(path);
     }
 
@@ -45,7 +49,7 @@ public class PathManager : MonoBehaviour
         for (int i = 0; i < pos.Count; i++)
         {
             if (i == pos.Count - 1) return;
-            Debug.DrawLine(pos[i].transform.position + Vector3.up, pos[i + 1].transform.position + Vector3.up, Color.green);
+            Debug.DrawLine(pos[i].transform.position + Vector3.up * 0.1f, pos[i + 1].transform.position + Vector3.up * 0.1f, Color.green);
         }
     }
     
