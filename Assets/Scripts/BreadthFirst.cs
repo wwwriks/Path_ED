@@ -1,17 +1,31 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Profiling;
 
 [CreateAssetMenu(menuName = "Searching Algorithm/Breadth First")]
 public class BreadthFirst : Searcher
 {
     public override void Begin()
     {
-        throw new System.NotImplementedException();
+        sampler = CustomSampler.Create("BFS");
     }
 
     public override List<Ball> Search(Ball root, Ball goal, List<Ball> allBalls)
     {
+        if (root == null || goal == null) return null;
+        
+        //sampler.Begin();
+        var bfs = BFS(root, goal);
+        //sampler.End();
+        
+        return bfs;
+    }
+
+    private static List<Ball> BFS(Ball root, Ball goal)
+    {
+        if (root == null || goal == null) return null;
+        
         var start = root;
         List<Ball> result = new List<Ball>();
         List<Ball> visited = new List<Ball>();
@@ -42,7 +56,7 @@ public class BreadthFirst : Searcher
                 }
             }
         }
-        
+
         return null;
     }
 }

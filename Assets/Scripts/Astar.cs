@@ -1,49 +1,46 @@
-//https://github.com/davecusatis/A-Star-Sharp/blob/master/Astar.cs
-
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Profiling;
 
 [CreateAssetMenu(menuName = "Searching Algorithm/Astar")]
 public class Astar : Searcher
 {
     public override void Begin()
     {
-        /*
-        nodes.Clear();
-        for (int i = 0; i < balls.Count; i++)
-        {
-            balls[i].GetNearbyColliders();
-            nodes.Add(balls[i]);
-            nodes[i].hCost = 0;
-            nodes[i].gCost = 0;
-            nodes[i].parent = null;
-        }
-        */
+        sampler = CustomSampler.Create("Astar");
     }
 
     public override List<Ball> Search(Ball root, Ball goal, List<Ball> allBalls)
     {
+        if (root == null || goal == null) return null;
+        
         for (int i = 0; i < allBalls.Count; i++)
         {
             allBalls[i].Reset();
         }
         
-        return AstarPath(root, goal);
+        sampler.Begin();
+        var astarPath = AstarPath(root, goal);
+        sampler.End();
+        
+        return astarPath;
     }
 
-    private static List<Ball> AstarPath(Ball start, Ball goal)
+    private static List<Ball> AstarPath(Ball root, Ball goal)
     {
+        if (root == null || goal == null) return null;
+        
         HashSet<Ball> open = new HashSet<Ball>();
         HashSet<Ball> closed = new HashSet<Ball>();
-        Ball current = start;
+        Ball current = root;
         
         current.hCost = 0;
         current.gCost = 0;
         current.parent = null;
         
-        open.Add(start);
+        open.Add(root);
 
         while (open.Count > 0)
         {

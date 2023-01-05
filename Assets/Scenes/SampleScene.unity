@@ -217,6 +217,8 @@ GameObject:
   m_Component:
   - component: {fileID: 840434816}
   - component: {fileID: 840434815}
+  - component: {fileID: 840434818}
+  - component: {fileID: 840434817}
   m_Layer: 0
   m_Name: PathManager
   m_TagString: Untagged
@@ -236,13 +238,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d843bf6aa04ad904abb6f09d9cac63cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  searcher: {fileID: 11400000, guid: 8f38207c4c6fb2745b524ca6a1603001, type: 2}
+  Simulate: 0
+  searcher: {fileID: 11400000, guid: 72f4c650ad5336947884b21ab0218d83, type: 2}
   ball: {fileID: 877094975625489542, guid: 521354541d25c864aa25f9c58c659874, type: 3}
   minSpeed: 0.5
   maxSpeed: 2
-  bounds: {x: 9, y: 5}
-  minAmount: 1000
-  maxAmount: 1000
+  bounds: {x: 5, y: 5}
+  minAmount: 250
+  maxAmount: 500
   balls: []
 --- !u!4 &840434816
 Transform:
@@ -259,3 +262,48 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &840434817
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 840434814}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed1c886c16569484c8179a592e25a028, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  filename: Result.csv
+  pm: {fileID: 840434815}
+  em: {fileID: 840434818}
+  td:
+    tName: 
+    instances: 
+    ms_CS: []
+    ms_Insert: []
+    ms_Merge: []
+  milliseconds: []
+--- !u!114 &840434818
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 840434814}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3807406872400e408ec8bbf53af4773, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _pathManager: {fileID: 840434815}
+  experimentDuration: 10
+  amount: 25
+  sorters:
+  - {fileID: 11400000, guid: a0808f408f42f8a45b6d75abdbc74010, type: 2}
+  - {fileID: 11400000, guid: bf25136e49f7d2b4398e63daa89a0ed1, type: 2}
+  - {fileID: 11400000, guid: 8f38207c4c6fb2745b524ca6a1603001, type: 2}
+  waitTime: 0.25
+  timeScale: 2
+  ballAmounts: 
+  rerunsForAverage: 10

@@ -2,27 +2,36 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Profiling;
 
 [CreateAssetMenu(menuName = "Searching Algorithm/Dijkstras")]
 public class Dijkstras : Searcher
 {
     public override void Begin()
     {
-        throw new System.NotImplementedException();
+        sampler = CustomSampler.Create("Dijkstras");
     }
 
     public override List<Ball> Search(Ball root, Ball goal, List<Ball> allBalls)
     {
+        if (root == null || goal == null) return null;
+        
         for (int i = 0; i < allBalls.Count; i++)
         {
             allBalls[i].Reset();
         }
-
-        return RunDijkstras(root, goal, allBalls);
+        
+        sampler.Begin();
+        var runDijkstras = RunDijkstras(root, goal, allBalls);
+        sampler.End();
+        
+        return runDijkstras;
     }
 
     private List<Ball> RunDijkstras(Ball root, Ball goal, List<Ball> allBalls)
     {
+        if (root == null || goal == null) return null;
+        
         HashSet<Ball> open = new HashSet<Ball>();
         HashSet<Ball> closed = new HashSet<Ball>();
         open.Clear();

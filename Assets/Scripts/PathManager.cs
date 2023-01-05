@@ -7,6 +7,7 @@ using Random = UnityEngine.Random;
 
 public class PathManager : MonoBehaviour
 {
+    public bool Simulate = false;
     [Header("Searching algorithm")] public Searcher searcher;
     
     private Ball goal;
@@ -23,8 +24,18 @@ public class PathManager : MonoBehaviour
 
     public List<Ball> balls;
     
+    public event SearcherChange OnSearcherChange;
+    public delegate void SearcherChange(Searcher searcher);
+    
+    public void StartSimulation()
+    {
+        GenerateBalls();
+        searcher.Begin();
+    }
+
     private void Start()
     {
+        if (!Simulate) return;
         GenerateBalls();
     }
 
@@ -94,5 +105,53 @@ public class PathManager : MonoBehaviour
         start = ballListWithoutGoal[Random.Range(0, ballListWithoutGoal.Count)];
         start.SetColor(Color.green);
         start.specialBall = true;
+    }
+
+    public void AddBalls(int amount)
+    {
+        int length = amount;
+        balls = new List<Ball>();
+        for (int i = 0; i < length; i++)
+        {
+            var theball = Instantiate(ball, Vector3.zero, Quaternion.identity);
+            theball.transform.parent = transform;
+
+            var ballComponent = theball.GetComponent<Ball>();
+            
+            ballComponent.InitBall(
+                Random.Range(minSpeed, maxSpeed),
+                new Vector2(
+                    Random.Range(-1f, 1f),
+                    Random.Range(-1f, 1f)).normalized,
+                bounds, this);
+            theball.transform.position = new Vector2(Random.Range(-bounds.x, bounds.x), Random.Range(-bounds.y, bounds.y));
+
+            balls.Add(ballComponent);
+        }
+
+        goal = balls[Random.Range(0, balls.Count)];
+        goal.SetColor(Color.yellow);
+        goal.specialBall = true;
+        List<Ball> ballListWithoutGoal = balls;
+        ballListWithoutGoal.Remove(goal);
+        start = ballListWithoutGoal[Random.Range(0, ballListWithoutGoal.Count)];
+        start.SetColor(Color.green);
+        start.specialBall = true;
+    }
+    
+    public void ChangeSearcher(Searcher _searcher)
+    {
+        searcher = _searcher;
+        searcher.Begin();
+        OnSearcherChange?.Invoke(_searcher);
+    }
+    
+    public void Clear()
+    {
+        for (int i = transform.childCount - 1; i > 0; i--)
+        {
+            Destroy(transform.GetChild(i).gameObject);
+        }
+        balls.Clear();
     }
 }

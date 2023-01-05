@@ -41,15 +41,18 @@
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
   <ItemGroup>
-     <Compile Include="Assets\PathManager.cs" />
-     <Compile Include="Assets\DepthFirst.cs" />
-     <Compile Include="Assets\Searcher.cs" />
-     <Compile Include="Assets\Astar.cs" />
-     <Compile Include="Assets\Ball.cs" />
-     <Compile Include="Assets\BreadthFirst.cs" />
-     <Compile Include="Assets\Dijkstras.cs" />
+     <Compile Include="Assets\Scripts\PathManager.cs" />
+     <Compile Include="Assets\Scripts\DepthFirst.cs" />
+     <Compile Include="Assets\Scripts\Searcher.cs" />
+     <Compile Include="Assets\Scripts\Astar.cs" />
+     <Compile Include="Assets\Scripts\Ball.cs" />
+     <Compile Include="Assets\Scripts\BreadthFirst.cs" />
+     <Compile Include="Assets\Scripts\Dijkstras.cs" />
+     <Compile Include="Assets\Scripts\ExperimentManager.cs" />
+     <Compile Include="Assets\Scripts\PathRecorder.cs" />
      <Folder Include="Assets" />
      <Folder Include="Assets\Scenes" />
+     <Folder Include="Assets\Scripts" />
      <Reference Include="UnityEngine">
      <HintPath>C:\Program Files\Unity\Hub\Editor\2021.3.16f1\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>
      </Reference>
