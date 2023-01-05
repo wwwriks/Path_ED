@@ -280,9 +280,9 @@ MonoBehaviour:
   td:
     tName: 
     instances: 
-    ms_CS: []
-    ms_Insert: []
-    ms_Merge: []
+    ms_BFS: []
+    ms_Dijkstras: []
+    ms_Astar: []
   milliseconds: []
 --- !u!114 &840434818
 MonoBehaviour:
@@ -297,13 +297,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _pathManager: {fileID: 840434815}
-  experimentDuration: 10
-  amount: 25
-  sorters:
+  experimentDuration: 25
+  amount: 50
+  searchers:
   - {fileID: 11400000, guid: a0808f408f42f8a45b6d75abdbc74010, type: 2}
   - {fileID: 11400000, guid: bf25136e49f7d2b4398e63daa89a0ed1, type: 2}
   - {fileID: 11400000, guid: 8f38207c4c6fb2745b524ca6a1603001, type: 2}
   waitTime: 0.25
-  timeScale: 2
+  timeScale: 5
   ballAmounts: 
-  rerunsForAverage: 10
+  rerunsForAverage: 200

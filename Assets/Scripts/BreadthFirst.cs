@@ -15,9 +15,9 @@ public class BreadthFirst : Searcher
     {
         if (root == null || goal == null) return null;
         
-        //sampler.Begin();
+        sampler.Begin();
         var bfs = BFS(root, goal);
-        //sampler.End();
+        sampler.End();
         
         return bfs;
     }

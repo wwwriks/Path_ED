@@ -2,13 +2,14 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class ExperimentManager : MonoBehaviour
 {
     [SerializeField] private PathManager _pathManager;
     [SerializeField] private float experimentDuration = 60f;
     [SerializeField] private int amount = 100;
-    [SerializeField] private Searcher[] sorters;
+    [SerializeField] private Searcher[] searchers;
     public float waitTime = 0f;
     [SerializeField] private float timeScale = 1f;
     public List<int> ballAmounts = new List<int>();
@@ -18,15 +19,10 @@ public class ExperimentManager : MonoBehaviour
     private int ballIndex = 0;
 
     public event OntoNextInstances OnNextInstances;
-
     public delegate void OntoNextInstances(int a, int b);
-
     public event OntoNextStep OnNextStep;
-
     public delegate void OntoNextStep(int a, int b);
-
     public event ExperimentFinished OnExperimentFinished;
-
     public delegate void ExperimentFinished();
 
     private void Awake()
@@ -52,7 +48,7 @@ public class ExperimentManager : MonoBehaviour
         {
             if (i > 0)
             {
-                _pathManager.ChangeSearcher(sorters[i]);
+                _pathManager.ChangeSearcher(searchers[i]);
                 ballIndex = 0;
             }
 
