@@ -109,6 +109,7 @@ public class PathRecorder : MonoBehaviour
     {
         //TODO this might fuck it up
         TakeSnapshot(index, maxIndex);
+        OnSearched();
         
         return;
         if (recorder == null) return;
