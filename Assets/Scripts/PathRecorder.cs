@@ -48,65 +48,24 @@ public class PathRecorder : MonoBehaviour
         algoIndex++;
     }
 
-    private void Update()
-    {
-        if (done) return;
-
-        switch (algoIndex)
-        {
-            case 0:
-                milliseconds.Clear();
-                recorder = Recorder.Get("BFS");
-                break;
-            case 1:
-                milliseconds.Clear();
-                recorder = Recorder.Get("Dijkstras");
-                break;
-            case 2:
-                milliseconds.Clear();
-                recorder = Recorder.Get("Astar");
-                break;
-        }
-    }
-
     private void OnSearched()
     {
-        return;
         if (done) return;
 
         switch (algoIndex)
         {
             case 0:
+                milliseconds.Clear();
                 recorder = Recorder.Get("BFS");
                 break;
             case 1:
+                milliseconds.Clear();
                 recorder = Recorder.Get("Dijkstras");
                 break;
             case 2:
+                milliseconds.Clear();
                 recorder = Recorder.Get("Astar");
                 break;
-        }
-        
-        return;
-        if (pm.searcher is BreadthFirst)
-        {
-            Debug.Log("I AM BFS");
-            recorder = Recorder.Get("BFS");
-            algoIndex = 0;
-        }
-        
-        if (pm.searcher is Dijkstras)
-        {
-            Debug.Log("I AM DIJKSTRAS");
-            recorder = Recorder.Get("Dijkstras");
-            algoIndex = 1;
-        }
-        
-        if (pm.searcher is Astar)
-        {
-            Debug.Log("I AM ASTAR");
-            recorder = Recorder.Get("Astar");
-            algoIndex = 2;
         }
     }
 
@@ -190,7 +149,7 @@ public class PathRecorder : MonoBehaviour
     {
         using (StreamWriter streamWriter = new StreamWriter(filename))
         {
-            streamWriter.Write("instances,BFS,Dijkstras,Astar");
+            streamWriter.Write("instances,BFS,Dijkstra,Astar");
             streamWriter.WriteLine(String.Empty);
             
             //DO NOT USE td.instancs.count - 1 IT IS TEMPORARY

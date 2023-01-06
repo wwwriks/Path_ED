@@ -36,9 +36,12 @@ public class PathManager : MonoBehaviour
     private void Start()
     {
         searcher.Begin();
-        
-        if (!Simulate) return;
-        GenerateBalls();
+
+        if (Simulate)
+        {
+            Time.timeScale = 1;
+            GenerateBalls();
+        }
     }
 
     private void Update()

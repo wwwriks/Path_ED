@@ -9,7 +9,7 @@ public class ExperimentManager : MonoBehaviour
     [SerializeField] private PathManager _pathManager;
     [SerializeField] private float experimentDuration = 60f;
     [SerializeField] private int amount = 100;
-    [SerializeField] private Searcher[] searchers;
+    public Searcher[] searchers;
     public float waitTime = 0f;
     [SerializeField] private float timeScale = 1f;
     public List<int> ballAmounts = new List<int>();
@@ -42,6 +42,7 @@ public class ExperimentManager : MonoBehaviour
         StartCoroutine(RunExperiment());
     }
 
+    
     IEnumerator RunExperiment()
     {
         for (int i = 0; i < 3; i++)
